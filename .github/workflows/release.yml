@@ -51,6 +51,6 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          build-args:
-            ARGO_VERSION: ${{ env.ARGO_VERSION }}
-            AVP_VERSION: ${{ env.AVP_VERSION }}
+          build-args: |
+            ARGO_VERSION=${{ env.ARGO_VERSION }}
+            AVP_VERSION=${{ env.AVP_VERSION }}
