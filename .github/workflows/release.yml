@@ -1,6 +1,6 @@
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "*" ]
     tags: [ "*" ]
   schedule:
     - cron: "0 10 * * 1"
@@ -40,6 +40,9 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=sha,event=push,enable=true,prefix=branch-{{ branch }}-git-,format=short
+            type=raw,event=push,enable={{ is_default_branch }},value=argocd{{ env.ARGO_VERSION }}-avp${{ env.AVP_VERSION }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
